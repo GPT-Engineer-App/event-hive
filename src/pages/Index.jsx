@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Box, Heading, Text, Button, Input, Stack, Grid, GridItem, IconButton, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, FormControl, FormLabel } from "@chakra-ui/react";
+import { Box, Heading, Text, Button, Stack, Grid, GridItem, IconButton, useDisclosure } from "@chakra-ui/react";
+import EventModal from "../components/EventModal";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 
 const Index = () => {
@@ -75,33 +76,18 @@ const Index = () => {
           </GridItem>
         ))}
       </Grid>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{selectedEvent ? "Edit Event" : "Add Event"}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <FormControl>
-              <FormLabel>Title</FormLabel>
-              <Input value={title} onChange={(e) => setTitle(e.target.value)} />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Location</FormLabel>
-              <Input value={location} onChange={(e) => setLocation(e.target.value)} />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Date</FormLabel>
-              <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-            </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleSaveEvent}>
-              Save
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <EventModal
+        isOpen={isOpen}
+        onClose={onClose}
+        selectedEvent={selectedEvent}
+        title={title}
+        setTitle={setTitle}
+        location={location}
+        setLocation={setLocation}
+        date={date}
+        setDate={setDate}
+        handleSaveEvent={handleSaveEvent}
+      />
     </Box>
   );
 };
