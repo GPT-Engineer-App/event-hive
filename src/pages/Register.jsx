@@ -13,7 +13,7 @@ const Register = ({ setIsLoggedIn }) => {
     const user = { username, password };
     localStorage.setItem("user", JSON.stringify(user));
     setIsLoggedIn(true);
-    navigate("/login");
+    navigate("/");
   };
 
   return (

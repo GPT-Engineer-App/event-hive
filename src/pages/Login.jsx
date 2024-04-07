@@ -17,7 +17,6 @@ const Login = ({ setIsLoggedIn }) => {
     } else {
       alert("Invalid username or password");
     }
-    navigate("/");
   };
 
   return (
