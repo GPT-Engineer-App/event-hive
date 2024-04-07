@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Heading, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -10,7 +10,9 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Registered with username:", username);
+    const user = { username, password };
+    localStorage.setItem("user", JSON.stringify(user));
+    setIsLoggedIn(true);
     navigate("/login");
   };
 

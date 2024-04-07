@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Heading, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -10,7 +10,13 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Logged in with username:", username);
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser && storedUser.username === username && storedUser.password === password) {
+      setIsLoggedIn(true);
+      navigate("/");
+    } else {
+      alert("Invalid username or password");
+    }
     navigate("/");
   };
 
