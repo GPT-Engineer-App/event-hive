@@ -54,6 +54,9 @@ const Index = () => {
       <Heading as="h1" mb={4}>
         Events Website
       </Heading>
+      <Text fontSize="xl" mb={4}>
+        Welcome to our events site!
+      </Text>
       <Button leftIcon={<FaPlus />} colorScheme="blue" onClick={handleAddEvent}>
         Add Event
       </Button>
@@ -76,18 +79,7 @@ const Index = () => {
           </GridItem>
         ))}
       </Grid>
-      <EventModal
-        isOpen={isOpen}
-        onClose={onClose}
-        selectedEvent={selectedEvent}
-        title={title}
-        setTitle={setTitle}
-        location={location}
-        setLocation={setLocation}
-        date={date}
-        setDate={setDate}
-        handleSaveEvent={handleSaveEvent}
-      />
+      <EventModal isOpen={isOpen} onClose={onClose} selectedEvent={selectedEvent} title={title} setTitle={setTitle} location={location} setLocation={setLocation} date={date} setDate={setDate} handleSaveEvent={handleSaveEvent} />
     </Box>
   );
 };
