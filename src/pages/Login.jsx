@@ -23,8 +23,6 @@ const Login = ({ setIsLoggedIn }) => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("jwt", data.jwt);
         setIsLoggedIn(true);
         navigate("/");
       } else {
