@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Heading, Text, Button, Stack, Grid, GridItem, IconButton, useDisclosure } from "@chakra-ui/react";
 import EventModal from "../components/EventModal";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 
 const Index = () => {
   const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("http://localhost:1337/api/events");
+        const data = await response.json();
+        setEvents(data.data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [title, setTitle] = useState("");
@@ -64,13 +78,13 @@ const Index = () => {
         {events.map((event) => (
           <GridItem key={event.id} borderWidth={1} borderRadius="md" p={4}>
             <Heading as="h2" size="md" mb={2}>
-              {event.title}
+              {event.attributes.Name}
             </Heading>
             <Text>
-              <strong>Location:</strong> {event.location}
+              <strong>Description:</strong> {event.attributes.Description}
             </Text>
             <Text>
-              <strong>Date:</strong> {event.date}
+              <strong>Date:</strong> {new Date(event.attributes.createdAt).toLocaleDateString()}
             </Text>
             <Stack direction="row" mt={4}>
               <IconButton icon={<FaEdit />} aria-label="Edit Event" onClick={() => handleEditEvent(event)} />
