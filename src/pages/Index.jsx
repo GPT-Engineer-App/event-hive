@@ -41,24 +41,58 @@ const Index = () => {
     onOpen();
   };
 
-  const handleDeleteEvent = (eventId) => {
-    setEvents(events.filter((event) => event.id !== eventId));
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      await fetch(`http://localhost:1337/api/events/${eventId}`, {
+        method: "DELETE",
+      });
+      setEvents(events.filter((event) => event.id !== eventId));
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    }
   };
 
-  const handleSaveEvent = () => {
+  const handleSaveEvent = async () => {
     if (selectedEvent) {
-      // Edit existing event
-      const updatedEvents = events.map((event) => (event.id === selectedEvent.id ? { ...event, title, location, date } : event));
-      setEvents(updatedEvents);
+      try {
+        await fetch(`http://localhost:1337/api/events/${selectedEvent.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            data: {
+              Name: title,
+              Description: location,
+              Date: date,
+            },
+          }),
+        });
+        const updatedEvents = events.map((event) => (event.id === selectedEvent.id ? { ...event, attributes: { Name: title, Description: location, Date: date } } : event));
+        setEvents(updatedEvents);
+      } catch (error) {
+        console.error("Error updating event:", error);
+      }
     } else {
-      // Add new event
-      const newEvent = {
-        id: Date.now(),
-        title,
-        location,
-        date,
-      };
-      setEvents([...events, newEvent]);
+      try {
+        const response = await fetch("http://localhost:1337/api/events", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            data: {
+              Name: title,
+              Description: location,
+              Date: date,
+            },
+          }),
+        });
+        const data = await response.json();
+        setEvents([...events, data.data]);
+      } catch (error) {
+        console.error("Error creating event:", error);
+      }
     }
     onClose();
   };
