@@ -7,15 +7,31 @@ const Login = ({ setIsLoggedIn }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser && storedUser.username === username && storedUser.password === password) {
-      setIsLoggedIn(true);
-      navigate("/");
-    } else {
-      alert("Invalid username or password");
+    try {
+      const response = await fetch("http://localhost:1337/api/auth/local", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          identifier: username,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("jwt", data.jwt);
+        setIsLoggedIn(true);
+        navigate("/");
+      } else {
+        alert("Invalid username or password");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
     }
   };
 

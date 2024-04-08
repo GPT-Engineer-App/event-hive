@@ -6,10 +6,10 @@ import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("jwt"));
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("jwt");
     setIsLoggedIn(false);
   };
 
