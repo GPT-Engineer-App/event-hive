@@ -3,18 +3,8 @@ import { Box, Heading, Text, Button, Stack, Grid, GridItem, IconButton, useDiscl
 import EventModal from "../components/EventModal";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 
-import { useNavigate } from "react-router-dom";
-
 const Index = () => {
-  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
 
   useEffect(() => {
     const fetchEvents = async () => {

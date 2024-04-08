@@ -26,6 +26,8 @@ const Login = ({ setIsLoggedIn }) => {
         const data = await response.json();
         localStorage.setItem("jwt", data.jwt);
         setIsLoggedIn(true);
+        setUsername("");
+        setPassword("");
         navigate("/");
       } else {
         alert("Invalid username or password");
