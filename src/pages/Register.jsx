@@ -3,7 +3,7 @@ import { Box, Heading, FormControl, FormLabel, Input, Button } from "@chakra-ui/
 import { useNavigate } from "react-router-dom";
 
 const Register = ({ setIsLoggedIn }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const Register = ({ setIsLoggedIn }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username,
+          email,
           password,
         }),
       });
@@ -40,8 +40,8 @@ const Register = ({ setIsLoggedIn }) => {
       </Heading>
       <form onSubmit={handleSubmit}>
         <FormControl>
-          <FormLabel>Username</FormLabel>
-          <Input value={username} onChange={(e) => setUsername(e.target.value)} />
+          <FormLabel>Email</FormLabel>
+          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormControl>
         <FormControl mt={4}>
           <FormLabel>Password</FormLabel>
