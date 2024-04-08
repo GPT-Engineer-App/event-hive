@@ -35,9 +35,9 @@ const Index = () => {
 
   const handleEditEvent = (event) => {
     setSelectedEvent(event);
-    setTitle(event.title);
-    setLocation(event.location);
-    setDate(event.date);
+    setTitle(event.attributes.Name);
+    setLocation(event.attributes.Description);
+    setDate(event.attributes.Date);
     onOpen();
   };
 

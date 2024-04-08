@@ -21,18 +21,6 @@ const EventModal = ({ isOpen, onClose, selectedEvent, title, setTitle, location,
             <FormLabel>Date</FormLabel>
             <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
           </FormControl>
-          {selectedEvent && (
-            <>
-              <FormControl mt={4}>
-                <FormLabel>Description</FormLabel>
-                <Input value={location} onChange={(e) => setLocation(e.target.value)} />
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel>Date</FormLabel>
-                <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-              </FormControl>
-            </>
-          )}
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={handleSaveEvent}>
