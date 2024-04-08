@@ -37,7 +37,7 @@ const Index = () => {
     setSelectedEvent(event);
     setTitle(event.attributes.Name);
     setLocation(event.attributes.Description);
-    setDate(event.attributes.Date);
+    setDate(new Date(event.attributes.createdAt).toISOString().slice(0, 10));
     onOpen();
   };
 
