@@ -18,16 +18,17 @@ const Register = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
           username,
+          email,
           password,
         }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         navigate("/login");
       } else {
-        const data = await response.json();
         alert(data.error.message);
       }
     } catch (error) {
