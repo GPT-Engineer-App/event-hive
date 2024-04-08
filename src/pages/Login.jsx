@@ -22,10 +22,13 @@ const Login = () => {
         }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
+        localStorage.setItem("token", data.jwt);
         navigate("/");
       } else {
-        alert("Invalid username or password");
+        alert(data.error.message);
       }
     } catch (error) {
       console.error("Error during login:", error);
