@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, BrowserRouter as Router, Routes, Link, useNavigate } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, Link } from "react-router-dom";
 import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
 import Index from "./pages/Index.jsx";
 import Register from "./pages/Register.jsx";
@@ -8,12 +8,9 @@ import Login from "./pages/Login.jsx";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("jwt"));
 
-  const navigate = useNavigate();
-
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
-    navigate("/login");
   };
 
   return (
